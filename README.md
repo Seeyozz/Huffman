@@ -1,0 +1,2 @@
+# Huffman
+Project Huffman coding
