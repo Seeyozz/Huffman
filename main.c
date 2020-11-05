@@ -6,12 +6,14 @@ int main(int argc, char *argv[])
 
     (void)argc;
 
-    char* filename = argv[1];
+    char *filename = argv[1];
 
     writeDico(filename);
+
+    fromTextToBit(fileToString(filename));
 }
 
-void writeDico(char* filename)
+void writeDico(char *filename)
 {
     int count[256] = {0};
     FILE *f = fopen(filename, "r");
@@ -21,7 +23,7 @@ void writeDico(char* filename)
         printf("Unable to read file.\n");
         exit(EXIT_FAILURE);
     }
-    
+
     int c;
     while ((c = fgetc(f)))
     {
@@ -55,4 +57,22 @@ void writeDico(char* filename)
     }
 
     fclose(fp);
+}
+
+char *fileToString(char *filename)
+{
+    char *s;
+    FILE *f = fopen(filename, "r");
+
+    fseek(f, 0, SEEK_END);
+    int length = ftell(f);
+    fseek(f, 0, SEEK_SET);
+    s = malloc(length);
+    if (s)
+    {
+        fread(s, 1, length, f);
+    }
+    fclose(f);
+
+    return s;
 }
