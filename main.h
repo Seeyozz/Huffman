@@ -4,15 +4,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "bit.h"
 
 typedef struct List
 {
     struct List *next;
-    int data;
+    int occur;
+    char c;
 }List;
 
-void writeDico(char* filename);
+#include "bit.h"
+#include "occurences.h"
+#include "tree.h"
+
 char *fileToString(char *filename);
+void printList(struct List* list);
 
 #endif 
