@@ -1,9 +1,8 @@
 #include "bit.h"
 
-void fromTextToBit(char *s)
+void fromTextToBit(char *s) //convert a text to binary and put in in the file output.txt
 {
     int i;
-    //char *buffer;
 
     FILE *fp = fopen("data/output.txt", "w");
 
@@ -14,29 +13,11 @@ void fromTextToBit(char *s)
     }
 
     for(; *s != 0; ++s)
-    {
-        //printf("%c => ", *s);
-        
+    {   
         for(i = 7; i >= 0; --i) 
             (*s & 1 << i) ? fputc('1', fp) : fputc('0', fp);
 
-        //putchar('\n');
     }
-
-    
-
-    //char buffer[1024];
-
-    // for (int k = 0; k < 256; k++)
-    // {
-    //     if (count[k] > 0)
-    //     {
-    //         snprintf(buffer, sizeof(buffer), "%c = %d\n", k, count[k]);
-    //     }
-
-    //     fputs(buffer, fp);
-    //     memset(buffer, '\0', sizeof(buffer));
-    // }
 
     fclose(fp);
 }

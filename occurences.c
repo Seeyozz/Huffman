@@ -1,6 +1,6 @@
 #include "occurences.h"
 
-void writeOccur(char *filename)
+void writeOccur(char *filename) //put the char and his number of occurences in the file occur.txt
 {
     int count[256] = {0};
     FILE *f = fopen(filename, "r");
@@ -61,7 +61,7 @@ void writeOccur(char *filename)
     fclose(fp);
 }
 
-void listOccur(struct List *result, char *filename)
+void listOccur(struct List *result, char *filename) //fill the linked list result with the char and the number of occurences
 {
     char *line = NULL;
     size_t len = 0;
@@ -77,14 +77,6 @@ void listOccur(struct List *result, char *filename)
 
     while ((read = getline(&line, &len, f)) != -1)
     {
-        // printf("Retrieved line of length %zu:\n", read);
-        // printf("%s", line);
-
-        // printf("length = %zu\n", read);
-        // printf("char = %c\n", line[0]);
-        // printf("occur = %d\n", atoi(&line[read - 2]));
-        // printf("\n");
-
         result->c = line[0];
         result->occur = atoi(&line[read - 2]);
         result->next = malloc(sizeof(List));

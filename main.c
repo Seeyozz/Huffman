@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
     listOccur(result, "data/occur.txt");
 }
 
-char *fileToString(char *filename)
+char *fileToString(char *filename) //return a string containing the content of a text file
 {
     char *s;
     FILE *f = fopen(filename, "r");
@@ -34,7 +34,7 @@ char *fileToString(char *filename)
     return s;
 }
 
-void printList(struct List* list)
+void printList(struct List* list) //Print a linked list
 {
     while (list != NULL)
     {
