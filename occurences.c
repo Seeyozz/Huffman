@@ -17,7 +17,7 @@ void writeOccur(char *filename) //put the char and his number of occurences in t
         if (c == EOF)
             break;
 
-        //printf("char = %c\n", c);
+        //printf("char = %d\n", c);
 
         count[c] += 1;
     }
@@ -44,6 +44,7 @@ void writeOccur(char *filename) //put the char and his number of occurences in t
             {
                 snprintf(buffer, sizeof(buffer), "%c = %d", k, count[k]);
                 first = 0;
+                //printf("char = %c\n", k);
             }
         }
 
@@ -52,6 +53,7 @@ void writeOccur(char *filename) //put the char and his number of occurences in t
             if (count[k] > 0)
             {
                 snprintf(buffer, sizeof(buffer), "\n%c = %d", k, count[k]);
+                //printf("char = %c\n", k);
             }
         }
 

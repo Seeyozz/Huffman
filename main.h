@@ -34,6 +34,7 @@ typedef struct List_Node
 #include "bit.h"
 #include "occurences.h"
 #include "tree.h"
+#include "encode.h"
 
 char *fileToString(const char *filename);
 void printList(struct List *list);

@@ -117,16 +117,14 @@ void mergeTheTwoSmallest(struct List_Node **huffList)
         temp = temp->next;
     }
 
-    printf("min1->id = %d\n", min1->id);
-    printf("min2->id = %d\n", min2->id);
+    // printf("min1->id = %d\n", min1->id);
+    // printf("min2->id = %d\n", min2->id);
 
     Node *tree = create_node_tree('\0', min1->data->occur + min2->data->occur);
     tree->left = min1->data;
     tree->right = min2->data;
 
     push(huffList, tree, max_id + 1);
-    // printf("PUSH \n");
-    // printHuffmanList(huffList);
 
     deleteNode(huffList, min1->id);
     deleteNode(huffList, min2->id);
@@ -139,27 +137,14 @@ List_Node *huffman(struct List_Node *list)
 
     while (list->next)
     {
-        printHuffmanList(list);
+        //printHuffmanList(list);
         mergeTheTwoSmallest(&list);
-        printf("\n");
+        //printf("\n");
     }
 
-    printHuffmanList(list);
+    //printHuffmanList(list);
     mergeTheTwoSmallest(&list);
-    printf("\n");
-
-    // for (size_t i = 0; i < 9; i++)
-    // {
-    //     printHuffmanList(list);
-    //     mergeTheTwoSmallest(&list);
-    //     printf("\n");
-    // }
-
-    // if (list->tree)
-    // {
-    //     assert(list != NULL);
-    //     return list->tree;
-    // }
+    //printf("\n");
 
     return list;
 }

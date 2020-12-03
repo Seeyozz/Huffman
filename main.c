@@ -33,6 +33,12 @@ int main(int argc, char *argv[])
     printf("\n");
 
     huffman(huffmanList);
+
+    // char *code = getCode('c', "data/dico.txt");
+    // printf("code for c = %s\n", code);
+    // writeCode(code);
+
+    encode(filename);
 }
 
 char *fileToString(const char *filename)
