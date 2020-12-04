@@ -18,7 +18,7 @@ typedef struct Node
 typedef struct List
 {
     struct List *next;
-    int occur;
+    long occur;
     char c;
     struct Node *tree;
     int id;

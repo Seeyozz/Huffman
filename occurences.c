@@ -88,13 +88,49 @@ void listOccur(struct List *result, char *filename) //fill the linked list resul
 
     int id = 1;
     //char occur[1024];
+    char * temp;
+    int co = 4;
+
+    int first_jump = 0;
 
     while ((read = getline(&line, &len, f)) != -1)
     {
-        result->c = line[0];
+        if (line[0] == '\n')
+        {
+            first_jump = 1;
+            continue;
+        }
+        
+        if (first_jump)
+        {
+            result->c = '\n';
+        }
+
+        else
+        {
+            result->c = line[0];
+        }
+        
         result->id = id;
-        result->occur = atoi(line + 4);
-        //printf("nb = %s", line + 4);
+        result->occur = strtol(line + co, &temp, 10);
+            // if(*temp != '\0')
+            //     printf("Could not convert\n");
+
+        
+        // else
+        // {
+        //     result->occur = strtol(line + co, &temp, 10);
+        //     if(*temp != '\0')
+        //         printf("Could not convert\n");
+        // }
+
+        // if (line[strlen(line) - 1] == '\n')
+        // {
+        //     line[strlen(line) - 1] = '\0';
+        // }
+
+        
+        
         result->tree = NULL;
 
         if (result->next)

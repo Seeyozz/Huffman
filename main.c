@@ -87,7 +87,7 @@ void printList(struct List *list) //Print a linked list
 
         if (list)
         {
-            printf("%c = %d,\n", list->c, list->occur);
+            printf("%c = %ld,\n", list->c, list->occur);
         }
 
         if (!list->next)
