@@ -4,7 +4,7 @@ void print_tree(Tree tree)
 {
     if (tree != NULL)
     {
-        printf("%c ", tree->data);
+        printf("(%c = %i) ", tree->data, tree->occur);
         print_tree(tree->left);
         print_tree(tree->right);
     }

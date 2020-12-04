@@ -28,15 +28,17 @@ int main(int argc, char *argv[])
     List *result = create_list(counter);
     listOccur(result, "data/occur.txt");
 
-    
     List_Node *huffmanList = huffList(result, 1);
     printf("\n");
 
-    huffman(huffmanList);
+    Node *huffTree = (huffman(huffmanList))->data;
 
-    // char *code = getCode('c', "data/dico.txt");
-    // printf("code for c = %s\n", code);
-    // writeCode(code);
+    //print_tree(huffTree);
+
+    char code[256] = {0};
+
+    remove("data/dico.txt");
+    getDico(huffTree, code);
 
     encode(filename);
 }
