@@ -1,6 +1,6 @@
 #include "occurences.h"
 
-void writeOccur(char *filename) //put the char and his number of occurences in the file occur.txt
+void writeOccur(char *filename) //put the character and his number of occurences in the file occur.txt
 {
     int count[256] = {0};
     FILE *f = fopen(filename, "r");
