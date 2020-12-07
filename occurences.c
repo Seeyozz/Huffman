@@ -1,6 +1,6 @@
 #include "occurences.h"
 
-void writeOccur(char *filename) //put the char and his number of occurences in the file occur.txt
+void writeOccur(char *filename) //put the character and his number of occurences in the file occur.txt
 {
     int count[256] = {0};
     FILE *f = fopen(filename, "r");
@@ -69,7 +69,7 @@ void writeOccur(char *filename) //put the char and his number of occurences in t
     fclose(fp);
 }
 
-void listOccur(struct List *result, char *filename) //fill the linked list result with the char and the number of occur&
+void listOccur(struct List *result, char *filename) //fill the linked list result with the char and the number of occur
 {
     assert(result != NULL);
 
