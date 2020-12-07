@@ -71,7 +71,7 @@ void writeOccur(char *filename) //put the char and his number of occurences in t
 
 void listOccur(struct List *result, char *filename) //fill the linked list result with the char and the number of occur&
 {
-    assert(result != NULL && "If you see this you are a fucking fool");
+    assert(result != NULL);
 
     char *line = NULL;
     size_t len = 0;
