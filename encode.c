@@ -14,10 +14,26 @@ char *getCode(char c, const char *dico)
     size_t len = 0;
     int read = 0;
 
+    int newline = 0;
+
     char *code = (char *)malloc(sizeof(char));
 
     while ((read = getline(&line, &len, f)) != -1)
-    {
+    {      
+        if (line[0] == '\n' && c == '\n')
+        {
+            newline = 1;
+            continue;
+        }
+
+        if (newline)
+        {
+            code = line + 3;
+            break;
+        }
+        
+        
+        
         if (line[0] == c)
         {
             code = line + 4;
@@ -64,6 +80,7 @@ void encode(const char *input)
     {
         if (c == EOF)
             break;
+            
         writeCode(getCode(c, "data/dico.txt"));
     }
 

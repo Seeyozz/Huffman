@@ -100,12 +100,14 @@ void listOccur(struct List *result, char *filename) //fill the linked list resul
             first_jump = 1;
             continue;
         }
+        co = 4;
         
         if (first_jump)
         {
             result->c = '\n';
+            first_jump = 0;
+            co = 3;
         }
-
         else
         {
             result->c = line[0];
@@ -131,7 +133,7 @@ void listOccur(struct List *result, char *filename) //fill the linked list resul
 
         
         
-        result->tree = NULL;
+        //result->tree = NULL;
 
         if (result->next)
         {
@@ -152,7 +154,7 @@ List *create_Element(char c, int id, int occur)
     new_el->c = c;
     new_el->id = id;
     new_el->occur = occur;
-    new_el->tree = NULL;
+    //new_el->tree = NULL;
     new_el->next = NULL;
     return new_el;
 }

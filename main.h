@@ -20,7 +20,7 @@ typedef struct List
     struct List *next;
     long occur;
     char c;
-    struct Node *tree;
+    //struct Node *tree;
     int id;
 } List;
 

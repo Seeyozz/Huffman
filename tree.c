@@ -132,19 +132,13 @@ void mergeTheTwoSmallest(struct List_Node **huffList)
 
 List_Node *huffman(struct List_Node *list)
 {
-
-    //     assert(list != NULL);
-
     while (list->next)
     {
-        //printHuffmanList(list);
         mergeTheTwoSmallest(&list);
-        //printf("\n");
+        //printHuffmanList(list);
     }
 
-    //printHuffmanList(list);
     mergeTheTwoSmallest(&list);
-    //printf("\n");
 
     return list;
 }
