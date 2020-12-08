@@ -1,6 +1,6 @@
 #include "occurences.h"
 
-void writeOccur(char *filename) //put the char and his number of occurences in the file occur.txt
+void writeOccur(char *filename) //put the character and his number of occurences in the file occur.txt
 {
     int count[256] = {0};
     FILE *f = fopen(filename, "r");
@@ -17,7 +17,7 @@ void writeOccur(char *filename) //put the char and his number of occurences in t
         if (c == EOF)
             break;
 
-        //printf("char = %c\n", c);
+        //printf("char = %d\n", c);
 
         count[c] += 1;
     }
@@ -44,6 +44,7 @@ void writeOccur(char *filename) //put the char and his number of occurences in t
             {
                 snprintf(buffer, sizeof(buffer), "%c = %d", k, count[k]);
                 first = 0;
+                //printf("char = %c\n", k);
             }
         }
 
@@ -52,6 +53,7 @@ void writeOccur(char *filename) //put the char and his number of occurences in t
             if (count[k] > 0)
             {
                 snprintf(buffer, sizeof(buffer), "\n%c = %d", k, count[k]);
+                //printf("char = %c\n", k);
             }
         }
 
@@ -67,9 +69,9 @@ void writeOccur(char *filename) //put the char and his number of occurences in t
     fclose(fp);
 }
 
-void listOccur(struct List *result, char *filename) //fill the linked list result with the char and the number of occur&
+void listOccur(struct List *result, char *filename) //fill the linked list result with the char and the number of occur
 {
-    assert(result != NULL && "If you see this you are a fucking fool");
+    assert(result != NULL);
 
     char *line = NULL;
     size_t len = 0;
@@ -86,14 +88,50 @@ void listOccur(struct List *result, char *filename) //fill the linked list resul
 
     int id = 1;
     //char occur[1024];
+    char * temp;
+    int co = 4;
+
+    int first_jump = 0;
 
     while ((read = getline(&line, &len, f)) != -1)
     {
-        result->c = line[0];
+        if (line[0] == '\n')
+        {
+            first_jump = 1;
+            continue;
+        }
+        co = 4;
+        
+        if (first_jump)
+        {
+            result->c = '\n';
+            first_jump = 0;
+            co = 3;
+        }
+        else
+        {
+            result->c = line[0];
+        }
+        
         result->id = id;
-        result->occur = atoi(line + 4);
-        //printf("nb = %s", line + 4);
-        result->tree = NULL;
+        result->occur = strtol(line + co, &temp, 10);
+            // if(*temp != '\0')
+            //     printf("Could not convert\n");
+
+        
+        // else
+        // {
+        //     result->occur = strtol(line + co, &temp, 10);
+        //     if(*temp != '\0')
+        //         printf("Could not convert\n");
+        // }
+
+        // if (line[strlen(line) - 1] == '\n')
+        // {
+        //     line[strlen(line) - 1] = '\0';
+        // }
+
+        //result->tree = NULL;
 
         if (result->next)
         {
@@ -114,7 +152,7 @@ List *create_Element(char c, int id, int occur)
     new_el->c = c;
     new_el->id = id;
     new_el->occur = occur;
-    new_el->tree = NULL;
+    //new_el->tree = NULL;
     new_el->next = NULL;
     return new_el;
 }

@@ -17,22 +17,49 @@ int main(int argc, char *argv[])
 
     FILE *f = fopen("data/occur.txt", "r");
     int counter = 0;
+    int first = 0;
     for (char c = getc(f); c != EOF; c = getc(f))
-    {
+    {   
+        if (!first && c == '\n')
+        {
+            first = 1;
+            continue;
+        }
+
+        first = 1;
+        
+        
         if (c == '\n')
+        {
             counter++;
+        }
     }
     counter++;
+
+    //printf("counter = %d\n", counter);
+
     fclose(f);
 
     List *result = create_list(counter);
     listOccur(result, "data/occur.txt");
 
-    
+    //printList(result);
+
     List_Node *huffmanList = huffList(result, 1);
     printf("\n");
 
-    huffman(huffmanList);
+    //printHuffmanList(huffmanList);
+
+    Node *huffTree = (huffman(huffmanList))->data;
+
+    //print_tree(huffTree);
+
+    char code[256] = {0};
+
+    remove("data/dico.txt");
+    getDico(huffTree, code);
+    
+    encode(filename);
 }
 
 char *fileToString(const char *filename)
@@ -72,14 +99,9 @@ void printList(struct List *list) //Print a linked list
 {
     while (list != NULL)
     {
-        // if (list->tree)
-        // {
-        //     printf("tree ");
-        // }
-
         if (list)
         {
-            printf("%c = %d,\n", list->c, list->occur);
+            printf("%c = %ld,\n", list->c, list->occur);
         }
 
         if (!list->next)

@@ -4,7 +4,7 @@ void fromTextToBit(char *s) //convert a text to binary and put it in the file ou
 {
     int i;
 
-    FILE *fp = fopen("data/output.txt", "w");
+    FILE *fp = fopen("data/bin_origin.txt", "w");
 
     if (!fp)
     {

@@ -18,9 +18,9 @@ typedef struct Node
 typedef struct List
 {
     struct List *next;
-    int occur;
+    long occur;
     char c;
-    struct Node *tree;
+    //struct Node *tree;
     int id;
 } List;
 
@@ -34,6 +34,8 @@ typedef struct List_Node
 #include "bit.h"
 #include "occurences.h"
 #include "tree.h"
+#include "encode.h"
+#include "dico.h"
 
 char *fileToString(const char *filename);
 void printList(struct List *list);
