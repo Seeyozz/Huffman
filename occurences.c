@@ -11,13 +11,11 @@ void writeOccur(char *filename) //put the char and his number of occurences in t
         exit(EXIT_FAILURE);
     }
 
-    int c = 0;
+    int c;
     while ((c = fgetc(f)))
     {
         if (c == EOF)
             break;
-
-        //printf("char = %c\n", c);
 
         count[c] += 1;
     }
@@ -32,7 +30,7 @@ void writeOccur(char *filename) //put the char and his number of occurences in t
         exit(EXIT_FAILURE);
     }
 
-    char buffer[4096] = {0};
+    char buffer[1024];
 
     int first = 1;
 
@@ -49,86 +47,39 @@ void writeOccur(char *filename) //put the char and his number of occurences in t
 
         else
         {
+
             if (count[k] > 0)
             {
                 snprintf(buffer, sizeof(buffer), "\n%c = %d", k, count[k]);
             }
         }
 
-        int fput = fputs(buffer, fp);
-        if (fput == EOF)
-        {
-            return;
-        }
-
+        fputs(buffer, fp);
         memset(buffer, '\0', sizeof(buffer));
     }
 
     fclose(fp);
 }
 
-void listOccur(struct List *result, char *filename) //fill the linked list result with the char and the number of occur&
+void listOccur(struct List *result, char *filename) //fill the linked list result with the char and the number of occurences
 {
-    assert(result != NULL && "If you see this you are a fucking fool");
-
     char *line = NULL;
     size_t len = 0;
-    int read = 0;
+    ssize_t read;
 
     FILE *f = fopen(filename, "r");
 
     if (!f)
     {
         printf("Unable to read file.\n");
-        fclose(f);
         exit(EXIT_FAILURE);
     }
-
-    int id = 1;
-    //char occur[1024];
 
     while ((read = getline(&line, &len, f)) != -1)
     {
         result->c = line[0];
-        result->id = id;
-        result->occur = atoi(line + 4);
-        //printf("nb = %s", line + 4);
-        result->tree = NULL;
-
-        if (result->next)
-        {
-            result = result->next;
-        }
-        id++;
-    }
-
-    //free(occur);
-
-    fclose(f);
-}
-
-List *create_Element(char c, int id, int occur)
-{
-    struct List *new_el;
-    new_el = (List *)malloc(sizeof(List));
-    new_el->c = c;
-    new_el->id = id;
-    new_el->occur = occur;
-    new_el->tree = NULL;
-    new_el->next = NULL;
-    return new_el;
-}
-
-List *create_list(int size)
-{
-    if (size <= 0)
-    {
-        return NULL;
-    }
-    else
-    {
-        List *myel = create_Element('\0', 0, 0);
-        myel->next = create_list(size - 1);
-        return myel;
+        result->occur = atoi(&line[read - 2]);
+        result->next = malloc(sizeof(List));
+        result = result->next;
     }
 }

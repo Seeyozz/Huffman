@@ -1,6 +1,6 @@
 #include "bit.h"
 
-void fromTextToBit(char *s) //convert a text to binary and put it in the file output.txt
+void fromTextToBit(char *s) //convert a text to binary and put in in the file output.txt
 {
     int i;
 
@@ -12,19 +12,13 @@ void fromTextToBit(char *s) //convert a text to binary and put it in the file ou
         exit(EXIT_FAILURE);
     }
 
+    for(; *s != 0; ++s)
+    {   
+        for(i = 7; i >= 0; --i) 
+            (*s & 1 << i) ? fputc('1', fp) : fputc('0', fp);
 
-    int len = 0;
-    while (s[len] != '\0')
-    {
-        len++;
-    }
-
-    for (int j = 0; j < len; j++)
-    {
-        char ch = s[j];
-        for (i = 7; i >= 0; --i)
-            (ch & 1 << i) ? fputc('1', fp) : fputc('0', fp);
     }
 
     fclose(fp);
 }
+

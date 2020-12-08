@@ -2,7 +2,7 @@
 
 int main(int argc, char *argv[])
 {
-    //gcc -Wall -Wextra -Werror -std=c99 -fsanitize=address -g -O1 -o main *.c
+    //gcc -Wall -Wextra -Werror -std=c99 -O1 -o main *.c
 
     (void)argc;
 
@@ -10,118 +10,35 @@ int main(int argc, char *argv[])
 
     writeOccur(filename);
 
-    char *st;
-    st = fileToString(filename);
-    fromTextToBit(st);
-    free(st);
+    fromTextToBit(fileToString(filename));
 
-    FILE *f = fopen("data/occur.txt", "r");
-    int counter = 0;
-    for (char c = getc(f); c != EOF; c = getc(f))
-    {
-        if (c == '\n')
-            counter++;
-    }
-    counter++;
-    fclose(f);
-
-    List *result = create_list(counter);
+    List *result = (List *)malloc(sizeof(List));
     listOccur(result, "data/occur.txt");
-
-    
-    List_Node *huffmanList = huffList(result, 1);
-    printf("\n");
-
-    huffman(huffmanList);
 }
 
-char *fileToString(const char *filename)
+char *fileToString(char *filename) //return a string containing the content of a text file
 {
     char *s;
-    int length;
     FILE *f = fopen(filename, "r");
-    if (f == NULL)
-    {
-        return NULL; // tu ne peux plus rien faire tout va crash
-    }
 
-    if (fseek(f, 0, SEEK_END) < 0 || (length = ftell(f)) < 0 || fseek(f, 0, SEEK_SET) < 0)
+    fseek(f, 0, SEEK_END);
+    int length = ftell(f);
+    fseek(f, 0, SEEK_SET);
+    s = malloc(length);
+    if (s)
     {
-        fclose(f);
-        return NULL; // tu ne peux plus rien faire tout va crash
-    }
-    s = malloc((length + 1) * sizeof(*s));
-    if (s == NULL)
-    {
-        fclose(f);
-        return NULL; // tu ne peux plus rien faire tout va crash
-    }
-    s[length] = '\0';
-    if ((unsigned long)length != fread(s, 1, length, f))
-    {
-        free(s);
-        fclose(f);
-        return NULL; // tu ne peux plus rien faire tout va crash
+        fread(s, 1, length, f);
     }
     fclose(f);
 
     return s;
 }
 
-void printList(struct List *list) //Print a linked list
+void printList(struct List* list) //Print a linked list
 {
     while (list != NULL)
     {
-        // if (list->tree)
-        // {
-        //     printf("tree ");
-        // }
-
-        if (list)
-        {
-            printf("%c = %d,\n", list->c, list->occur);
-        }
-
-        if (!list->next)
-        {
-            break;
-        }
-
+        printf("%c = %d\n", list->c, list->occur);
         list = list->next;
     }
-}
-
-void deleteNode(struct List_Node **ref, int key)
-{
-    if (!*ref)
-    {
-        return;
-    }
-
-    struct List_Node *temp = *ref;
-    struct List_Node *prev = NULL;
-
-    if (temp != NULL && temp->id == key)
-    {
-        *ref = temp->next;
-        free(temp);
-        temp = NULL;
-        return;
-    }
-    //Find the key to be deleted
-    while (temp != NULL && temp->id != key)
-    {
-        prev = temp;
-        temp = temp->next;
-    }
-
-    // If the key is not present
-    if (temp == NULL)
-        return;
-
-    // Remove the node
-    prev->next = temp->next;
-
-    free(temp);
-    temp = NULL;
 }
