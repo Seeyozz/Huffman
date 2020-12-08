@@ -131,8 +131,6 @@ void listOccur(struct List *result, char *filename) //fill the linked list resul
         //     line[strlen(line) - 1] = '\0';
         // }
 
-        
-        
         //result->tree = NULL;
 
         if (result->next)
