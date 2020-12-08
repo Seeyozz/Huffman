@@ -57,6 +57,9 @@ void writeCode(char *code)
         exit(EXIT_FAILURE);
     }
 
+    
+    code[strlen(code) - 1] = '\0';
+
     //fprintf(f, "%s", code);
     fputs(code, f);
 
